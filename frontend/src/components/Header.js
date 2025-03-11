@@ -10,7 +10,7 @@ function Header() {
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/dashboard">Dashboard</a></li>
-          <li><a href="/report">Report Breach</a></li>
+          <li><a href="/report-breach">Report Breach</a></li>
           <li><a href="/security">Security Audits</a></li>
         </ul>
       </nav>

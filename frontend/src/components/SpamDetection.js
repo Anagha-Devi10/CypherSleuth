@@ -45,7 +45,7 @@ function SpamDetection() {
       <Header />
       <main className="spam-container">
         <div className="spam-card">
-          <h2>Email Spam Detection</h2>
+          <h2>Spam Detection</h2>
           <form onSubmit={handleSubmit}>
             <textarea
               placeholder="Enter email text here..."

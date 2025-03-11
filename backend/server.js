@@ -84,7 +84,34 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+const breachSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  breachType: String,
+  description: String,
+  reportedAt: { type: Date, default: Date.now },
+});
 
+// Create model
+const BreachReport = mongoose.model("BreachReport", breachSchema);
+
+// Route to store breach report
+app.post("/report-breach", async (req, res) => {
+  try {
+    const { name, email, breachType, description } = req.body;
+
+    if (!name || !email || !breachType || !description) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const newReport = new BreachReport({ name, email, breachType, description });
+    await newReport.save();
+
+    res.json({ message: "Report submitted successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: "Error saving report" });
+  }
+});
 // ✅ **Test Route**
 app.get("/", (req, res) => {
   res.send("Server is running...");
