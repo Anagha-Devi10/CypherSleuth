@@ -1,40 +1,116 @@
 /* src/components/Header.css */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(23, 24, 24, 0.651);
-    padding: 20px 40px;
-    border-bottom: 1px solid #19aec9;
+ .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(23, 24, 24, 0.85);
+  padding: 20px 40px;
+  border-bottom: 1px solid #19aec9;
+  position: relative;
+} 
+
+/* Logo */
+.header .logo {
+  font-size: 32px;
+  color: #0ff;
+} 
+
+/* Hamburger Menu - Always at the Right */
+.menu-icon {
+  font-size: 30px;
+  cursor: pointer;
+  color: #0ff;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.menu-icon:hover {
+  transform: scale(1.2);
+} 
+
+/* Navigation - Hidden by Default */
+ nav {
+  display: none;
+}
+
+/* Mobile Mode (Dropdown Style) */
+ @media screen and (max-width: 768px) {
+  nav {
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background: rgba(23, 24, 24, 0.95);
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+      width: 80%;
+      text-align: center;
   }
-  
-  .header .logo {
-    font-size: 32px;
-    color: #0ff; /* Neon cyan */
-    
+
+  .nav-visible {
+      display: block;
   }
-  
-  .header nav ul {
-    display: flex;
-    list-style: none;
+
+  nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
   }
-  
-  .header nav ul li {
-    margin-left: 30px;
+
+  nav ul li {
+      padding: 10px;
   }
-  
-  .header nav ul li a {
-    font-size: 18px;
-    color: #bbb;
-    padding: 8px 12px;
-    border-radius: 8px;
-    transition: background-color 0.3s, color 0.3s;
+
+  nav ul li a {
+      font-size: 18px;
+      color: #bbb;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
+      display: block;
   }
-  
-  .header nav ul li a:hover {
-    background-color: #333;
-    color: #0ff;  /* Neon cyan */
-    transform: scale(1.1);
-    text-shadow: 0 0 15px #0ff, 0 0 25px #0ff;
+
+  nav ul li a:hover {
+      background-color: #333;
+      color: #0ff;
+      transform: scale(1.1);
+      text-shadow: 0 0 15px #0ff, 0 0 25px #0ff;
   }
-  
+} 
+
+
+ @media screen and (min-width: 769px) {
+  .nav-visible {
+      display: flex;
+      margin-left: 500px;
+      gap: 5px;
+  }
+
+  nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+  }
+
+  nav ul li {
+      padding: 10px;
+  }
+
+  nav ul li a {
+      font-size: 18px;
+      color: #bbb;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
+      display: block;
+  }
+
+  nav ul li a:hover {
+      background-color: #333;
+      color: #0ff;
+      transform: scale(1.1);
+      text-shadow: 0 0 15px #0ff, 0 0 25px #0ff;
+  }
+} 
+

@@ -5,13 +5,13 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const User = require("./models/User");
+const axios = require("axios");
 
 dotenv.config(); // Load environment variables
 
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-
 const PORT = process.env.PORT || 5002;
 
 // ✅ Connect to MongoDB
@@ -112,6 +112,7 @@ app.post("/report-breach", async (req, res) => {
     res.status(500).json({ error: "Error saving report" });
   }
 });
+
 // ✅ **Test Route**
 app.get("/", (req, res) => {
   res.send("Server is running...");

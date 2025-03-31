@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./ReportBreach.css";
+import Header from "../components/Header";
 
 function ReportBreach() {
   const [formData, setFormData] = useState({
@@ -29,6 +30,8 @@ function ReportBreach() {
   };
 
   return (
+    <div>
+      <Header/>
     <div className="report-breach-container">
       <h2 className="hh">Report a Security Breach</h2>
       <form onSubmit={handleSubmit}>
@@ -46,6 +49,7 @@ function ReportBreach() {
       </form>
       {message && <p>{message}</p>}
     </div>
+    </div>  
   );
 }
 

@@ -1,25 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './Home.css';
+import { BsRobot } from 'react-icons/bs';
 
 function Home() {
   const navigate = useNavigate();
+  const [chatOpen, setChatOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
 
-  const handleGetStarted = () => {
-    navigate('/spam-detection'); // Redirect to the input page
+  const toggleChat = () => {
+    setChatOpen(!chatOpen);
   };
-//spam-detection
+
+  const sendMessage = async () => {
+    if (input.trim() === "") return;
+
+    // Add user message to chat
+    const userMessage = { text: input, sender: "user" };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input }),
+      });
+
+      const data = await response.json();
+      console.log("Bot response:", data); // Debugging
+
+      const botResponse = { text: data.response || "Something went wrong.", sender: "bot" };
+      setMessages((prev) => [...prev, botResponse]);
+
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div>
       <Header />
       <main className="home-container">
         <h1>Welcome to CypherSleuth</h1>
         <p className='mm'>Your trusted cybersecurity platform for detecting and preventing online threats.</p>
-        <button className="get-started-btn" onClick={() => navigate("/login")}>Get Started</button>
+        <button className="get-started-btn" onClick={() => navigate("/login")}>
+          Get Started
+        </button>
       </main>
       <Footer />
+      
+      {/* Chatbot Icon */}
+      <div className="chatbot-icon" onClick={toggleChat}>
+        <BsRobot size={40} color="#0ff" />
+      </div>
+
+      {/* Chatbox */}
+      {chatOpen && (
+        <div className="chatbox">
+          <div className="chatbox-header">
+            <span>Chatbot</span>
+            <button onClick={toggleChat}>×</button>
+          </div>
+          <div className="chatbox-content">
+            {messages.map((msg, index) => (
+              <div key={index} className={`message ${msg.sender}`}>
+                {msg.text}
+              </div>
+            ))}
+          </div>
+          <div className="chatbox-input">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask me about cybersecurity..."
+            />
+            <button onClick={sendMessage}>Send</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
