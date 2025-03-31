@@ -19,6 +19,12 @@ function Dashboard() {
         <div className="card3" onClick={() => navigate('/cyber-news')}>
           Cybersecurity News
         </div>
+        <div className="card3" onClick={() => navigate('/fingerprint')}>
+          Browser Fingerprinting
+        </div>
+        <div className="card3" onClick={() => navigate('/2fa')}>
+        Two-Factor Authentication (2FA) Code Generator
+        </div>
       </div>
     </div>
   );
