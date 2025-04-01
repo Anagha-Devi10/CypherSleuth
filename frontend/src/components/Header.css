@@ -1,5 +1,5 @@
 /* src/components/Header.css */
- .header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,13 +7,13 @@
   padding: 20px 40px;
   border-bottom: 1px solid #19aec9;
   position: relative;
-} 
+}
 
 /* Logo */
 .header .logo {
   font-size: 32px;
   color: #0ff;
-} 
+}
 
 /* Hamburger Menu - Always at the Right */
 .menu-icon {
@@ -26,15 +26,15 @@
 
 .menu-icon:hover {
   transform: scale(1.2);
-} 
+}
 
 /* Navigation - Hidden by Default */
- nav {
+nav {
   display: none;
 }
 
 /* Mobile Mode (Dropdown Style) */
- @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   nav {
       position: absolute;
       top: 70px;
@@ -76,14 +76,14 @@
       transform: scale(1.1);
       text-shadow: 0 0 15px #0ff, 0 0 25px #0ff;
   }
-} 
+}
 
-
- @media screen and (min-width: 769px) {
+/* Desktop Mode (Flex Display on Header) */
+@media screen and (min-width: 769px) {
   .nav-visible {
       display: flex;
       margin-left: 500px;
-      gap: 5px;
+      gap: 5px; /* Reduced gap between menu and links */
   }
 
   nav ul {
@@ -112,5 +112,20 @@
       transform: scale(1.1);
       text-shadow: 0 0 15px #0ff, 0 0 25px #0ff;
   }
-} 
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+}
 
+.app-icon {
+  font-size: 32px; /* Adjust icon size */
+  color: #1fd8d8;  /* Cybersecurity Blue */
+  margin-right: 10px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}

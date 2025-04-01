@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import "./Header.css"; // Import custom CSS
+import { FaShieldAlt } from "react-icons/fa"; // Import Cybersecurity Icon
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className="header">
-      <div className="logo">CypherSleuth</div>
+      {/* Logo & Icon */}
+      <div className="logo-container">
+        <FaShieldAlt className="app-icon" /> {/* Icon */}
+        <div className="logo">CypherSleuth</div> {/* Title */}
+      </div>
 
-      
+      {/* Navigation - Hidden by default, shown when menu is open */}
       <nav className={menuOpen ? "nav-visible" : "nav-hidden"}>
         <ul>
           <li><a href="/">Home</a></li>
@@ -18,7 +23,7 @@ function Header() {
         </ul>
       </nav>
 
-      
+      {/* Hamburger Menu - Always at Right Side */}
       <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
         ☰
       </div>
@@ -27,5 +32,3 @@ function Header() {
 }
 
 export default Header;
- 
-

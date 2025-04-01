@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Classification.css';  // Import CSS file
 import Header from '../components/Header'; 
+
 function Classification() {
   const [text, setText] = useState('');
   const [result, setResult] = useState('');
@@ -26,7 +27,7 @@ function Classification() {
     <div>
       <Header/>
     <div className="classification-container">
-      <h1>Threat Scan</h1>
+      <h2>THREAT SCAN</h2>
       <p>Enter a message to check if it's Spam, Phishing, MITM, or DoS Attack.</p>
       <form onSubmit={handleSubmit}>
         <textarea 

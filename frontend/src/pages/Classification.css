@@ -30,7 +30,7 @@
 /* Title */
 .classification-container h1 {
     font-size: 28px;
-    background: linear-gradient(90deg, #1fd8d8, #00d9ff, #ff00ff);
+    background: linear-gradient(90deg, #1fd8d8, #00d9ff, #1fd8d8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-top: 5%;
@@ -63,8 +63,8 @@ textarea {
 }
 
 textarea:focus {
-    border-color: #ff00ff;
-    box-shadow: 0px 0px 15px rgba(255, 0, 255, 0.6);
+    border-color: #00f0ff;
+    box-shadow: 0px 0px 15px #14adb8(255, 0, 255, 0.6);
 }
 
 /* Submit Button */
@@ -85,7 +85,7 @@ textarea:focus {
 }
 
 .cc:hover {
-    background: linear-gradient(90deg, #00d9ff, #0a86b8, #1e3cff);
+    background: linear-gradient(90deg, #00d9ff, #0a86b8, #101011);
     transform: perspective(100px) translateZ(10px);
     box-shadow: 0px 6px 20px rgba(11, 81, 172, 0.8);
 }
@@ -97,4 +97,11 @@ h2 {
     color: #1fd8d8;
     font-weight: bold;
     text-shadow: 0px 0px 12px rgba(31, 216, 216, 0.8);
+}
+h2 {
+    font-size: 32px; /* Adjust size as needed */
+    font-weight: bold;
+    color: #0ff;
+    text-shadow: 0px 0px 10px rgba(31, 216, 216, 0.7);
+    text-transform: uppercase;
 }
