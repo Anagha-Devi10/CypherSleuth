@@ -3,8 +3,10 @@ from flask_cors import CORS
 import tensorflow as tf
 import numpy as np
 import re
+import os
 import google.generativeai as genai
 import pickle
+from scrape_news import get_cyber_news 
 from tensorflow.keras.preprocessing.text import Tokenizer
 
 # Initialize Flask app
@@ -47,14 +49,12 @@ def ai_response(user_message):
         CypherSleuth is a cybersecurity platform that detects threats like:
         - Spam
         - Phishing
-        - DoS (Denial of Service) attacks
-        - MITM (Man-in-the-Middle) attacks
-        - Compromised data leaks
-
-        It uses:
-        - LSTM-based AI models
-        - NLP techniques for text analysis
-        - Secure SHA-256 encryption for user protection
+        - Chatbot
+        - Password Strength Checker
+        - Email Leak Checker
+        -Cybersecurity News
+        -Browser Fingerprinting
+        -Two-Factor Authentication (2FA) Code Generator
 
         Question: {user_message}
         """
@@ -90,15 +90,33 @@ def analyze_threats(text_message):
         model = genai.GenerativeModel("gemini-1.5-flash")
         prompt = f"""
         You are a cybersecurity AI expert. Analyze the given message and classify it into possible threats.
-        
-        Possible classifications:
-        - Spam
-        - Phishing
-        - DoS (Denial of Service)
-        - MITM (Man-in-the-Middle)
-        - Safe (if no threats are detected)
 
-        Message: "{text_message}"
+        Possible classifications:
+        - **Spam** (Unwanted promotions, repetitive messages)
+        - **Phishing** (Tricking a user into revealing sensitive information via fake links or messages)
+        - **DoS (Denial of Service)** (Repeated requests that can overload a system)
+        - **MITM (Man-in-the-Middle)** (Communication interception, modified messages, fake identity confirmation)
+        - **Safe** (No threats detected)
+
+        ### **🚨 Classification Rules**
+        #### **MITM (Man-in-the-Middle):**
+        🔹 Messages that mention **unexpected logins or credential verifications** that the user **did not initiate**.  
+        🔹 Messages that **acknowledge a login attempt** from an **unknown device or location**.  
+        🔹 Requests to **reset passwords or confirm identity** when no such request was made by the user.  
+        🔹 Messages with **slightly altered language/style** (indicating interception and modification).
+
+        #### **Phishing:**
+        🔸 Messages that create **urgency or fear** (e.g., "Account hacked! Click now!").  
+        🔸 Messages that contain **fake links** pretending to be from trusted sources.  
+        🔸 Messages asking for **sensitive details like OTP, passwords, bank info**.
+
+        #### **DoS (Denial of Service):**
+        🔻 A **high volume of repeated messages** from the same sender.  
+        🔻 Messages that **flood the system** with **requests or commands**.  
+        🔻 Requests that **ask a user to overload a server/system**.
+
+
+        Message to analyse: "{text_message}"
         
         Respond with only the classifications separated by commas. Example:
         "Spam"", "Phishing","spam , phishing" OR "Safe"
@@ -129,6 +147,15 @@ def scan_message():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# 🔹 Cybersecurity News API
+@app.route("/get-news", methods=["GET"])
+def get_news():
+    """Fetch cybersecurity news from The Hacker News"""
+    try:
+        news_articles = get_cyber_news()
+        return jsonify(news_articles)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 # 🔹 Run Flask App
 if __name__ == "__main__":
     app.run(debug=True)

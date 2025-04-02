@@ -42,7 +42,8 @@ function Home() {
       sections.forEach((section) => observer.unobserve(section));
     };
   }, []);
-
+  
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -85,7 +86,38 @@ function Home() {
     setIsPlaying(true);
     document.querySelector(".promo-video").play();
   };
-
+  const saveContactData = async (formData) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5002/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(`Server Error: ${data.message}`);
+      }
+  
+      console.log("Contact saved successfully:", data.message);
+      alert("Message Sent Successfully!");
+  
+    } catch (error) {
+      console.error("Failed to save contact data:", error.message);
+      alert("Error sending message. Check console.");
+    }
+  };
+  
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+  
+    // Save data to MongoDB
+    saveContactData(formData);
+  
+    // Show success message
+    alert("Message Sent Successfully!");
+  };
   return (
     <div>
       <Header />
@@ -215,7 +247,7 @@ function Home() {
      <section className="contact-section">
         <h2>Contact Us</h2>
         <p>Have questions or need assistance? Reach out to us.</p>
-        <form className="contact-form" onSubmit={handleSubmit}>
+        <form className="contact-form" onSubmit={handleContactSubmit}>
           <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required />
           <input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange} required />
           <input type="text" name="phone" placeholder="Your Phone Number" value={formData.phone} onChange={handleChange} required />
